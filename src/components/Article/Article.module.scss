@@ -1,0 +1,70 @@
+.article {
+  width: 70vw;
+  background-color: #ffffff;
+  height: 140px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  font-weight: 400;
+
+  &__info {
+    margin-right: auto;
+    margin-left: 19px;
+    margin-top: 15px;
+
+    &_block {
+      display: flex;
+    }
+
+    &_title {
+      color: #1890ff !important;
+      font-weight: 400;
+      margin-bottom: 6px;
+      margin-right: 12px;
+    }
+
+    &_body {
+      overflow-wrap: break-word;
+      overflow: hidden;
+      height: 53px;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    &_tags {
+      display: inline-block;
+      max-width: 300px;
+      max-height: 30px;
+      overflow: scroll;
+      overflow-wrap: break-word;
+      font-size: 12px;
+      border: 1px solid black;
+      border-radius: 3px;
+      padding: 1px 5px 1px 5px;
+      margin-right: 5px;
+    }
+  }
+
+  &__user {
+    display: flex;
+    text-align: center;
+    margin: 15px;
+
+    &_author {
+      font-size: 18px;
+      font-weight: 300;
+      margin: 5px;
+      margin-top: 2px;
+    }
+    &_date {
+      font-size: 12px;
+      color: #00000080;
+    }
+    &_photo {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      margin-left: 12px;
+    }
+  }
+}

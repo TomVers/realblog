@@ -1,0 +1,65 @@
+.header {
+  display: flex;
+  font-size: 18px;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+
+  &__btn {
+    background-color: #ffffff;
+    margin-right: 40px;
+    font-size: 18px;
+    padding: 10px 12px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__author {
+    margin-right: 13px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+
+    &_image {
+      border-radius: 50%;
+      width: 46px;
+      height: 46px;
+      background-size: cover;
+      margin-left: 13px;
+      margin-right: 27px;
+    }
+  }
+}
+.name {
+  margin-right: auto;
+  padding-left: 22px;
+  font-weight: lighter;
+}
+
+.signupbtn {
+  border: 1px solid #52c41a;
+  border-radius: 5px;
+  color: #52c41a !important;
+}
+.signupbtn:hover {
+  background-color: #52c41a;
+  color: #ffffff !important;
+}
+.logoutbtn {
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+.logoutbtn:hover {
+  background-color: #52c41a;
+  color: #ffffff !important;
+  border-color: #52c41a;
+}
+.createbtn {
+  padding: 5px 12px;
+  border: 2px solid #52c41a;
+  border-radius: 5px;
+  color: #52c41a;
+}
