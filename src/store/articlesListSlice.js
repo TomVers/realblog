@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 import { apiBase } from '../config/api'
 
@@ -32,6 +33,55 @@ export const getArticle = createAsyncThunk(
   },
 )
 
+export const createArticle = createAsyncThunk(
+  'articles/createArticle',
+  async function (articleData) {
+    try {
+      const token = localStorage.getItem('token')
+      const response = await axios.post(`${apiBase}articles`, articleData, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      return response.data.article
+    } catch (error) {
+      throw new Error('Create article error')
+    }
+  },
+)
+
+export const deleteArticle = createAsyncThunk(
+  'articles/deleteArticle',
+  async function (articleSlug) {
+    try {
+      const token = localStorage.getItem('token')
+      const response = await axios.delete(`${apiBase}articles/${articleSlug}`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      return response.data
+    } catch (error) {
+      throw new Error('Delete article error')
+    }
+  },
+)
+
+export const editArticle = createAsyncThunk('articles/editArticle', async function (payload) {
+  try {
+    const { slug, articleData } = payload
+    const token = localStorage.getItem('token')
+    const response = await axios.put(`${apiBase}articles/${slug}`, articleData, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+    return response.data
+  } catch (error) {
+    throw new Error('Edit article error')
+  }
+})
+
 const articlesListSlice = createSlice({
   name: 'articles',
   initialState: {
@@ -40,17 +90,7 @@ const articlesListSlice = createSlice({
     offset: 0,
     status: '',
     error: '',
-    currentArticle: {
-      title: '',
-      body: '',
-      author: {
-        username: '',
-        image: '',
-      },
-      createdAt: '',
-      favoritesCount: null,
-      tagList: [],
-    },
+    currentArticle: null,
   },
   reducers: {
     changePage(state, action) {
@@ -77,9 +117,31 @@ const articlesListSlice = createSlice({
     },
     [getArticle.fulfilled]: (state, action) => {
       state.status = 'resolved'
-      state.article = action.payload.article
+      state.currentArticle = action.payload.article
     },
     [getArticle.rejected]: (state, action) => {
+      state.status = 'rejected'
+      state.error = action.payload
+    },
+    [createArticle.pending]: (state) => {
+      state.status = 'loading'
+      state.error = null
+    },
+    [createArticle.fulfilled]: (state) => {
+      state.status = 'resolved'
+    },
+    [createArticle.rejected]: (state, action) => {
+      state.status = 'rejected'
+      state.error = action.payload
+    },
+    [editArticle.pending]: (state) => {
+      state.status = 'loading'
+      state.error = null
+    },
+    [editArticle.fulfilled]: (state) => {
+      state.status = 'resolved'
+    },
+    [editArticle.rejected]: (state, action) => {
       state.status = 'rejected'
       state.error = action.payload
     },

@@ -1,5 +1,5 @@
 .article {
-  width: 941px;
+  max-width: 941px;
   background-color: #ffffff;
   border-radius: 5px;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
@@ -13,10 +13,20 @@
     padding-top: 0;
   }
 
+  &__description {
+    color: #00000080;
+    font-size: 14px;
+    margin-top: 15px;
+  }
+
+  &__infocontent {
+    margin-left: auto;
+  }
+
   &__info {
-    margin-right: auto;
     padding: 20px;
     display: flex;
+    padding-bottom: 10px;
 
     &_content {
       display: flex;
@@ -45,7 +55,7 @@
     &_user {
       display: flex;
       text-align: center;
-
+      justify-content: center;
       margin-left: auto;
     }
 
@@ -63,7 +73,34 @@
       width: 46px;
       height: 46px;
       border-radius: 50%;
-      margin-left: 12px;
+      margin-left: 10px;
+    }
+  }
+
+  &__delbtn {
+    border: 1px solid #f5222d;
+    color: #f5222d;
+    margin-top: 15px;
+    width: 78px;
+    margin-right: 10px;
+
+    &:hover {
+      color: #ffffff !important;
+      background-color: #f5222d;
+    }
+  }
+
+  &__editbtn {
+    border: 1px solid #52c41a;
+    color: #52c41a !important;
+    margin-top: 15px;
+    border-radius: 6px;
+    padding: 5px 25px;
+    font-size: 15px;
+
+    &:hover {
+      color: #ffffff !important;
+      background-color: #52c41a;
     }
   }
 }

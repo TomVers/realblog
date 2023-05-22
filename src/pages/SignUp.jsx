@@ -3,9 +3,9 @@ import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useState, useEffect } from 'react'
 
-import { registerUser } from '../../store/authenticationSlice'
+import { registerUser } from '../store/authenticationSlice'
 
-import styles from './SignUp.module.scss'
+import styles from './Pages.module.scss'
 
 export function SignUp() {
   const dispatch = useDispatch()

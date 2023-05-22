@@ -2,8 +2,9 @@ import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { loginUser } from '../../store/authenticationSlice'
-import styles from '../SignUp/SignUp.module.scss'
+import { loginUser } from '../store/authenticationSlice'
+
+import styles from './Pages.module.scss'
 
 export function SignIn() {
   const dispatch = useDispatch()
@@ -71,7 +72,9 @@ export function SignIn() {
               {errors.password && (
                 <p className={styles.labelcontain__error}>{errors.password.message}</p>
               )}
-              {rejectedPassword && <p className={styles.labelcontain__error}>Wrong password</p>}
+              {rejectedPassword === 'rejected' && (
+                <p className={styles.labelcontain__error}>Wrong password</p>
+              )}
             </label>
           </div>
           <input
@@ -81,12 +84,12 @@ export function SignIn() {
             className={styles.labelcontain__submitbtn}
           />
         </form>
-        <p className={styles.content__footer}>
+        <footer className={styles.content__footer}>
           Don’t have an account?
           <Link to={'/sign-up'} className={styles.content__link}>
-            Sign Up
+            Sign Up &#128271;
           </Link>
-        </p>
+        </footer>
       </div>
     </div>
   )

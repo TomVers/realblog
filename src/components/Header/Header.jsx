@@ -26,7 +26,9 @@ export const Header = () => {
       </Link>
       {isAuth ? (
         <>
-          <div className={`${styles.header__btn} ${styles.createbtn}`}>Create article</div>
+          <Link to={'/new-article'} className={`${styles.header__btn} ${styles.createbtn}`}>
+            Create article
+          </Link>
           <Link to={'/profile'} className={styles.header__author}>
             <div>{myName.user.username}</div>
             <img

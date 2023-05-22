@@ -12,33 +12,42 @@ export function ArticlesList() {
   const arrayArticles = useSelector((state) => state.articlesListSlice.articles)
   const dispatch = useDispatch()
   const { status, offset, articlesCount } = useSelector((state) => state.articlesListSlice)
+
   useEffect(() => {
     dispatch(getArticles())
   }, [])
+
   useEffect(() => {
     if (status === 'resolved') dispatch(getArticles(offset))
   }, [offset])
+
   const handlePageChange = (e) => {
     dispatch(changePage(e))
     dispatch(getArticles(e * 5 - 5))
   }
+
   if (arrayArticles.length === 0) {
-    return <Spin className={styles.spin} tip='Loading' size='large' />
+    return (
+      <Spin className={styles.spin} tip='Loading' size='large'>
+        <></>
+      </Spin>
+    )
   } else {
     return (
       <div className={styles.content}>
         <div className={styles.articles}>
-          {arrayArticles.map((el) => (
+          {arrayArticles?.map((el) => (
             <Article
               key={nanoid()}
-              slug={el.slug}
-              title={el.title}
-              countHeart={el.favoritesCount}
-              body={el.body}
-              tagList={el.tagList}
-              date={el.updatedAt}
-              authorName={el.author.username}
-              authorPhoto={el.author.image}
+              slug={el?.slug}
+              title={el?.title}
+              countHeart={el?.favoritesCount}
+              description={el?.description}
+              body={el?.body}
+              tagList={el?.tagList}
+              date={el?.updatedAt}
+              authorName={el?.author?.username}
+              authorPhoto={el?.author?.image}
             />
           ))}
         </div>

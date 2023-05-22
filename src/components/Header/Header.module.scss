@@ -61,5 +61,10 @@
   padding: 5px 12px;
   border: 2px solid #52c41a;
   border-radius: 5px;
-  color: #52c41a;
+  color: #52c41a !important;
+
+  &:hover {
+    background-color: #52c41a;
+    color: #ffffff !important;
+  }
 }

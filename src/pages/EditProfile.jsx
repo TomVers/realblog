@@ -2,8 +2,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import { updateUser } from '../../store/authenticationSlice'
-import styles from '../SignUp/SignUp.module.scss'
+import { updateUser } from '../store/authenticationSlice'
+
+import styles from './Pages.module.scss'
 
 export const EditProfile = () => {
   const dispatch = useDispatch()

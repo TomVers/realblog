@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid'
 import styles from './Article.module.scss'
 
 export function Article(props) {
-  const { slug, title, countHeart, body, tagList, date, authorName, authorPhoto } = props
+  const { slug, title, countHeart, description, tagList, date, authorName, authorPhoto } = props
   return (
     <div className={styles.article}>
       <div className={styles.article__info}>
@@ -15,7 +15,7 @@ export function Article(props) {
           </Link>
           <span className={styles}>&#9825; {countHeart}</span>
         </div>
-        {tagList.map((el) => {
+        {tagList?.map((el) => {
           if (tagList.length > 0) {
             return (
               <span key={nanoid()} className={styles.article__info_tags}>
@@ -24,12 +24,14 @@ export function Article(props) {
             )
           }
         })}
-        <p className={styles.article__info_body}>{body}</p>
+        <p className={styles.article__info_body}>{description}</p>
       </div>
       <div className={styles.article__user}>
         <div>
           <div className={styles.article__user_author}>{authorName}</div>
-          <div className={styles.article__user_date}>{format(new Date(date), 'MMM dd, yyyy')}</div>
+          <div className={styles.article__user_date}>
+            {date ? format(new Date(date), 'MMM dd, yyyy') : null}
+          </div>
         </div>
         <img className={styles.article__user_photo} src={authorPhoto} />
       </div>
