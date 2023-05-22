@@ -1,19 +1,64 @@
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import format from 'date-fns/format'
 import { nanoid } from 'nanoid'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { likeArticle, unlikeArticle } from '../../store/articlesListSlice'
 
 import styles from './Article.module.scss'
 
 export function Article(props) {
-  const { slug, title, countHeart, description, tagList, date, authorName, authorPhoto } = props
+  const {
+    slug,
+    title,
+    favoritesCount,
+    favorited,
+    description,
+    tagList,
+    date,
+    authorName,
+    authorPhoto,
+  } = props
+
+  const isAuth = useSelector((state) => state.authenticationSlice.data)
+
+  const dispatch = useDispatch()
+
+  const [likesCount, setLikesCount] = useState(favoritesCount)
+  const [isLiked, setIsLiked] = useState(favorited)
+
+  const onLikeClick = () => {
+    if (isLiked) {
+      setLikesCount(likesCount - 1)
+      dispatch(unlikeArticle(slug))
+    } else {
+      setLikesCount(likesCount + 1)
+      dispatch(likeArticle(slug))
+    }
+    setIsLiked(!isLiked)
+  }
+
   return (
     <div className={styles.article}>
       <div className={styles.article__info}>
         <div className={styles.article__info_block}>
-          <Link to={`/articles/${slug}`} className={styles.article__info_title}>
+          <Link
+            state={{ favoritesCount: likesCount, favorited: isLiked }}
+            to={`/articles/${slug}`}
+            className={styles.article__info_title}
+          >
             {title}
           </Link>
-          <span className={styles}>&#9825; {countHeart}</span>
+          {isAuth ? (
+            <button onClick={onLikeClick} className={styles.article__info_likes}>
+              {isLiked ? '❤️' : '🤍'} {likesCount}
+            </button>
+          ) : (
+            <button className={styles.article__info_noaccess}>
+              {'🤍'} {likesCount}
+            </button>
+          )}
         </div>
         {tagList?.map((el) => {
           if (tagList.length > 0) {

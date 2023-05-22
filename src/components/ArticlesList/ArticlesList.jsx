@@ -17,16 +17,12 @@ export function ArticlesList() {
     dispatch(getArticles())
   }, [])
 
-  useEffect(() => {
-    if (status === 'resolved') dispatch(getArticles(offset))
-  }, [offset])
-
   const handlePageChange = (e) => {
     dispatch(changePage(e))
     dispatch(getArticles(e * 5 - 5))
   }
 
-  if (arrayArticles.length === 0) {
+  if (status === 'loading') {
     return (
       <Spin className={styles.spin} tip='Loading' size='large'>
         <></>
@@ -41,13 +37,14 @@ export function ArticlesList() {
               key={nanoid()}
               slug={el?.slug}
               title={el?.title}
-              countHeart={el?.favoritesCount}
+              favoritesCount={el?.favoritesCount}
               description={el?.description}
               body={el?.body}
               tagList={el?.tagList}
               date={el?.updatedAt}
               authorName={el?.author?.username}
               authorPhoto={el?.author?.image}
+              favorited={el?.favorited}
             />
           ))}
         </div>

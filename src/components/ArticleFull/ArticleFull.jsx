@@ -1,12 +1,17 @@
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { nanoid } from 'nanoid'
 import format from 'date-fns/format'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import { Button, message, Popconfirm } from 'antd'
 
-import { getArticle, deleteArticle } from '../../store/articlesListSlice'
+import {
+  getArticle,
+  deleteArticle,
+  likeArticle,
+  unlikeArticle,
+} from '../../store/articlesListSlice'
 
 import styles from './ArticleFull.module.scss'
 
@@ -15,6 +20,7 @@ export const ArticleFull = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { currentArticle } = useSelector((state) => state.articlesListSlice)
+  const isAuth = useSelector((state) => state.authenticationSlice.data)
 
   useEffect(() => {
     dispatch(getArticle(slug))
@@ -41,6 +47,27 @@ export const ArticleFull = () => {
     localStorage.setItem('slug', slug)
   }, [slug])
 
+  const [likesCount, setLikesCount] = useState(0)
+  const [isLiked, setIsLiked] = useState(false)
+
+  useEffect(() => {
+    if (currentArticle) {
+      setLikesCount(currentArticle.favoritesCount)
+      setIsLiked(currentArticle.favorited)
+    }
+  }, [currentArticle])
+
+  const onLikeClick = () => {
+    if (isLiked) {
+      setLikesCount(likesCount - 1)
+      dispatch(unlikeArticle(slug))
+    } else {
+      setLikesCount(likesCount + 1)
+      dispatch(likeArticle(slug))
+    }
+    setIsLiked(!isLiked)
+  }
+
   return (
     <>
       {currentArticle && (
@@ -49,7 +76,17 @@ export const ArticleFull = () => {
             <div className={styles.article__info_block}>
               <div className={styles.article__info_content}>
                 <div className={styles.article__info_title}>{currentArticle.title}</div>
-                <span className={styles}>&#9825; {currentArticle.favoritesCount}</span>
+                {isAuth ? (
+                  <button onClick={onLikeClick} className={styles.article__info_likes}>
+                    <span>{isLiked ? '❤️' : '🤍'}</span>
+                    <span>{likesCount}</span>
+                  </button>
+                ) : (
+                  <div className={styles.article__info_noaccess}>
+                    <span>{isLiked ? '❤️' : '🤍'}</span>
+                    <span>{likesCount}</span>
+                  </div>
+                )}
               </div>
               {currentArticle.tagList.map((el) => {
                 if (currentArticle.tagList.length > 0) {
