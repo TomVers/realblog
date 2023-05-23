@@ -10,17 +10,15 @@ import styles from './ArticlesList.module.scss'
 
 export function ArticlesList() {
   const arrayArticles = useSelector((state) => state.articlesListSlice.articles)
+  const pageArticles = useSelector((state) => state.articlesListSlice.page)
   const dispatch = useDispatch()
-  const { status, offset, articlesCount } = useSelector((state) => state.articlesListSlice)
+  const { status, articlesCount } = useSelector((state) => state.articlesListSlice)
+
+  const offset = (pageArticles - 1) * 5
 
   useEffect(() => {
-    dispatch(getArticles())
-  }, [])
-
-  const handlePageChange = (e) => {
-    dispatch(changePage(e))
-    dispatch(getArticles(e * 5 - 5))
-  }
+    dispatch(getArticles(offset))
+  }, [dispatch, offset])
 
   if (status === 'loading') {
     return (
@@ -49,12 +47,12 @@ export function ArticlesList() {
           ))}
         </div>
         <Pagination
-          defaultCurrent={1}
-          defaultPageSize={5}
-          current={(offset + 5) / 5}
+          pageSize={5}
+          current={pageArticles}
+          showQuickJumper
           showSizeChanger={false}
           total={articlesCount}
-          onChange={handlePageChange}
+          onChange={(page) => dispatch(changePage(page))}
           className={styles.pagination}
         />
       </div>

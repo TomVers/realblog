@@ -60,15 +60,17 @@ export function Article(props) {
             </button>
           )}
         </div>
-        {tagList?.map((el) => {
-          if (tagList.length > 0) {
-            return (
-              <span key={nanoid()} className={styles.article__info_tags}>
-                {el}
-              </span>
-            )
-          }
-        })}
+        <div className={styles.article__info_tagfield}>
+          {tagList?.map((el) => {
+            if (tagList.length > 0) {
+              return (
+                <span key={nanoid()} className={styles.article__info_tags}>
+                  {el}
+                </span>
+              )
+            }
+          })}
+        </div>
         <p className={styles.article__info_body}>{description}</p>
       </div>
       <div className={styles.article__user}>

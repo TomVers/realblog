@@ -117,14 +117,14 @@ const articlesListSlice = createSlice({
   initialState: {
     articles: [],
     articlesCount: 0,
-    offset: 0,
+    page: 1,
     status: '',
     error: '',
     currentArticle: null,
   },
   reducers: {
     changePage(state, action) {
-      state.offset = action.payload * 5 - 5
+      state.page = action.payload
     },
   },
   extraReducers: {

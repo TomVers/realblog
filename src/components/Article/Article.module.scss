@@ -14,12 +14,13 @@
 
     &_block {
       display: flex;
+      margin-bottom: 6px;
     }
 
     &_title {
+      display: flex;
       color: #1890ff !important;
       font-weight: 400;
-      margin-bottom: 6px;
       margin-right: 12px;
     }
 
@@ -33,11 +34,19 @@
     }
 
     &_body {
-      overflow-wrap: break-word;
       overflow: hidden;
+      max-width: 500px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       height: 53px;
       font-size: 14px;
       margin-top: 6px;
+    }
+
+    &_tagfield {
+      max-height: 20px;
+      display: inline-block;
+      overflow: hidden;
     }
 
     &_tags {
