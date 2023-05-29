@@ -74,81 +74,80 @@ export const ArticleFull = () => {
         <></>
       </Spin>
     )
-  } else {
-    return (
-      <>
-        {currentArticle && (
-          <div className={styles.article}>
-            <div className={styles.article__info}>
-              <div className={styles.article__info_block}>
-                <div className={styles.article__info_content}>
-                  <div className={styles.article__info_title}>{currentArticle.title}</div>
-                  {isAuth ? (
-                    <button onClick={onLikeClick} className={styles.article__info_likes}>
-                      <span>{isLiked ? '❤️' : '🤍'}</span>
-                      <span>{likesCount}</span>
-                    </button>
-                  ) : (
-                    <div className={styles.article__info_noaccess}>
-                      <span>{isLiked ? '❤️' : '🤍'}</span>
-                      <span>{likesCount}</span>
-                    </div>
-                  )}
-                </div>
-                {currentArticle.tagList.map((el) => {
-                  if (currentArticle.tagList.length > 0) {
-                    return (
-                      <span key={nanoid()} className={styles.article__info_tags}>
-                        {el}
-                      </span>
-                    )
-                  }
-                })}
-                <div className={styles.article__description}>{currentArticle.description}</div>
-              </div>
-              <div className={styles.article__infocontent}>
-                <div className={styles.article__info_user}>
-                  <div>
-                    <div className={styles.article__info_author}>
-                      {currentArticle.author.username}
-                    </div>
-                    <div className={styles.article__info_date}>
-                      {format(new Date(currentArticle.updatedAt), 'MMM dd, yyyy')}
-                    </div>
+  }
+  return (
+    <>
+      {currentArticle && (
+        <div className={styles.article}>
+          <div className={styles.article__info}>
+            <div className={styles.article__info_block}>
+              <div className={styles.article__info_content}>
+                <div className={styles.article__info_title}>{currentArticle.title}</div>
+                {isAuth ? (
+                  <button onClick={onLikeClick} className={styles.article__info_likes}>
+                    <span>{isLiked ? '❤️' : '🤍'}</span>
+                    <span>{likesCount}</span>
+                  </button>
+                ) : (
+                  <div className={styles.article__info_noaccess}>
+                    <span>{isLiked ? '❤️' : '🤍'}</span>
+                    <span>{likesCount}</span>
                   </div>
-                  <img className={styles.article__info_photo} src={currentArticle.author.image} />
-                </div>
-                {isAuthor() ? (
-                  <>
-                    <Popconfirm
-                      title='Are you sure to delete this article?'
-                      onConfirm={confirm}
-                      onCancel={cancel}
-                      okText='Yes'
-                      cancelText='No'
-                      placement='right'
-                    >
-                      <Button type='link' className={styles.article__delbtn}>
-                        Delete
-                      </Button>
-                    </Popconfirm>
-                    <Link
-                      to={`/articles/${currentArticle.slug}/edit`}
-                      className={styles.article__editbtn}
-                    >
-                      Edit
-                    </Link>
-                  </>
-                ) : null}
+                )}
               </div>
+              {currentArticle.tagList.map((el) => {
+                if (currentArticle.tagList.length > 0) {
+                  return (
+                    <span key={nanoid()} className={styles.article__info_tags}>
+                      {el}
+                    </span>
+                  )
+                }
+              })}
+              <div className={styles.article__description}>{currentArticle.description}</div>
             </div>
-
-            <div className={styles.article__body}>
-              {<ReactMarkdown>{currentArticle.body}</ReactMarkdown>}
+            <div className={styles.article__infocontent}>
+              <div className={styles.article__info_user}>
+                <div>
+                  <div className={styles.article__info_author}>
+                    {currentArticle.author.username}
+                  </div>
+                  <div className={styles.article__info_date}>
+                    {format(new Date(currentArticle.updatedAt), 'MMM dd, yyyy')}
+                  </div>
+                </div>
+                <img className={styles.article__info_photo} src={currentArticle.author.image} />
+              </div>
+              {isAuthor() ? (
+                <>
+                  <Popconfirm
+                    title='Are you sure to delete this article?'
+                    onConfirm={confirm}
+                    onCancel={cancel}
+                    okText='Yes'
+                    cancelText='No'
+                    placement='right'
+                  >
+                    <Button type='link' className={styles.article__delbtn}>
+                      Delete
+                    </Button>
+                  </Popconfirm>
+                  <Link
+                    to={`/articles/${currentArticle.slug}/edit`}
+                    className={styles.article__editbtn}
+                  >
+                    Edit
+                  </Link>
+                </>
+              ) : null}
             </div>
           </div>
-        )}
-      </>
-    )
-  }
+
+          <div className={styles.article__body}>
+            {<ReactMarkdown>{currentArticle.body}</ReactMarkdown>}
+          </div>
+        </div>
+      )}
+    </>
+  )
 }

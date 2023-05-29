@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { likeArticle, unlikeArticle } from '../../store/articlesListSlice'
+import { shortText } from '../../assets/shortText'
 
 import styles from './Article.module.scss'
 
@@ -48,7 +49,7 @@ export function Article(props) {
             to={`/articles/${slug}`}
             className={styles.article__info_title}
           >
-            {title}
+            {shortText(title)}
           </Link>
           {isAuth ? (
             <button onClick={onLikeClick} className={styles.article__info_likes}>
