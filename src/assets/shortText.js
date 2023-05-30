@@ -1,3 +1,7 @@
-export function shortText(text) {
-  return text.replace(/^(.{60}[^\W]*).*/gm, '$1...')
+export function shortText(text, maxLength = 60) {
+  if (text.length <= maxLength) {
+    return text
+  } else {
+    return text.slice(0, maxLength) + '...'
+  }
 }

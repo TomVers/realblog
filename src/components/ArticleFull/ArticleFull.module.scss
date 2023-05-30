@@ -11,12 +11,15 @@
   &__body {
     padding: 20px;
     padding-top: 0;
+    hyphens: auto;
+    overflow: hidden;
   }
 
   &__description {
     color: #00000080;
     font-size: 14px;
     margin-top: 15px;
+    overflow: hidden;
   }
 
   &__infocontent {
